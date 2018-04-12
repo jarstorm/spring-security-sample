@@ -1,8 +1,7 @@
 package com.minds.client;
 
-import javax.ws.rs.core.HttpHeaders;
-
 import org.junit.Test;
+import org.springframework.http.HttpHeaders;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
