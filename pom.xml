@@ -13,6 +13,7 @@
 		<commons-io.version>2.5</commons-io.version>
 		<jersey.version>1.8</jersey.version>
 		<junit.version>4.11</junit.version>
+		<mysql.version>6.0.6</mysql.version>
 	</properties>
 
 	<parent>
@@ -32,6 +33,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		<!-- Database -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 		<!-- JWT -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -44,6 +50,11 @@
 			<artifactId>commons-io</artifactId>
 			<version>${commons-io.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
 		<!-- Jersey -->
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
@@ -55,7 +66,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
