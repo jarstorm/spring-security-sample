@@ -17,6 +17,6 @@ public class ExampleController {
 	@GetMapping("/sayHello")
 	@ResponseBody
 	public String sayHello(HttpServletRequest request) {
-		return "hi";
+		return "Hello";
 	}
 }

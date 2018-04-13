@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * User entity.
+ */
 @Entity
 @Table(name = "MINDS_USER")
 public class CustomUser implements Serializable {
@@ -16,10 +19,16 @@ public class CustomUser implements Serializable {
 	 */
 	private static final long serialVersionUID = 6345527571719641878L;
 
+	/**
+	 * User name.
+	 */
 	@Id
-	@Column(name = "USER_NAME")
+	@Column(name = "USER_NAME")	
 	private String username;
 
+	/**
+	 * User password.
+	 */
 	@Column(name = "USER_PASSWORD")
 	private String password;
 

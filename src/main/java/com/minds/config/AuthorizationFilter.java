@@ -16,10 +16,19 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import io.jsonwebtoken.Jwts;
 
-public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+/**
+ * This filter is used when a REST call uses a token
+ */
+public class AuthorizationFilter extends BasicAuthenticationFilter {
 
-	public JWTAuthorizationFilter(AuthenticationManager authManager) {
-		super(authManager);
+	/**
+	 * Public constructor
+	 * 
+	 * @param authenticationManager
+	 *            authentication manager
+	 */
+	public AuthorizationFilter(AuthenticationManager authenticationManager) {
+		super(authenticationManager);
 	}
 
 	@Override
@@ -30,15 +39,24 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			chain.doFilter(req, res);
 			return;
 		}
+
+		// Try to decode the token
 		UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		chain.doFilter(req, res);
 	}
 
+	/**
+	 * Get user data from token
+	 * 
+	 * @param request
+	 *            request
+	 * @return the user from this token
+	 */
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 		if (token != null) {
-			// Se procesa el token y se recupera el usuario.
+			// Get the user
 			String user = Jwts.parser().setSigningKey(Constants.SECRET_KEY)
 					.parseClaimsJws(token.replace(Constants.TOKEN_BEARER_PREFIX, "")).getBody().getSubject();
 

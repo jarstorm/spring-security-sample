@@ -1,5 +1,8 @@
 package com.minds.config;
 
+/**
+ * App constants
+ */
 public class Constants {
 	
 	/**

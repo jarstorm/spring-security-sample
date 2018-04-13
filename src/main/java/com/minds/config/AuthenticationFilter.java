@@ -20,17 +20,30 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+/**
+ * This filter is used when REST calls are not using a token
+ */
+public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+	/**
+	 * Authentication manager.
+	 */
 	private AuthenticationManager authenticationManager;
 
-	public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+	/**
+	 * Public constructor
+	 * 
+	 * @param authenticationManager
+	 *            authentication manager
+	 */
+	public AuthenticationFilter(AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
 	}
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
+		// Get user name and password from POST call
 		String username = obtainUsername(request);
 		String password = obtainPassword(request);
 
@@ -42,10 +55,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication auth) throws IOException, ServletException {
 
-		String token = Jwts.builder().setIssuedAt(new Date())
-				.setSubject(((User) auth.getPrincipal()).getUsername())
+		// Generate a token to send with the response
+		String token = Jwts.builder().setIssuedAt(new Date()).setSubject(((User) auth.getPrincipal()).getUsername())
 				.setExpiration(new Date(System.currentTimeMillis() + Constants.TOKEN_EXPIRATION_TIME))
 				.signWith(SignatureAlgorithm.HS512, Constants.SECRET_KEY).compact();
+
+		// Add the header to the response
 		response.addHeader(HttpHeaders.AUTHORIZATION, Constants.TOKEN_BEARER_PREFIX + " " + token);
 	}
 }
