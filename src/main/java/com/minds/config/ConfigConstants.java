@@ -1,9 +1,9 @@
 package com.minds.config;
 
 /**
- * App constants
+ * Configuration constants
  */
-public class Constants {
+public class ConfigConstants {
 	
 	/**
 	 * Spring security login url

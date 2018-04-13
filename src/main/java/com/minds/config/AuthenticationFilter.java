@@ -57,10 +57,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 		// Generate a token to send with the response
 		String token = Jwts.builder().setIssuedAt(new Date()).setSubject(((User) auth.getPrincipal()).getUsername())
-				.setExpiration(new Date(System.currentTimeMillis() + Constants.TOKEN_EXPIRATION_TIME))
-				.signWith(SignatureAlgorithm.HS512, Constants.SECRET_KEY).compact();
+				.setExpiration(new Date(System.currentTimeMillis() + ConfigConstants.TOKEN_EXPIRATION_TIME))
+				.signWith(SignatureAlgorithm.HS512, ConfigConstants.SECRET_KEY).compact();
 
 		// Add the header to the response
-		response.addHeader(HttpHeaders.AUTHORIZATION, Constants.TOKEN_BEARER_PREFIX + " " + token);
+		response.addHeader(HttpHeaders.AUTHORIZATION, ConfigConstants.TOKEN_BEARER_PREFIX + " " + token);
 	}
 }
